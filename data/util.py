@@ -140,7 +140,7 @@ def transform_augment_cd_new(im_a, im_b, label, split='val'):
        
         trans = transforms.Compose([
             transforms.Resize(size=256),
-            transforsm.ToTensor(),
+            transforms.ToTensor(),
         ])
        
         norm_img = transforms.Normalize([0.5], [0.5])
