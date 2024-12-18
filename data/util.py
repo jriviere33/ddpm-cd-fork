@@ -110,3 +110,47 @@ def transform_augment_cd(img, split='val', min_max=(0, 1)):
     img = totensor(img)
     ret_img = img * (min_max[1] - min_max[0]) + min_max[0]
     return ret_img
+
+
+def transform_augment_cd_new(im_a, im_b, label, split='val'):
+    if split == 'train':             
+        import torchvision.transforms.v2 as transforms
+                          
+        trans = transforms.Compose([
+            transforms.Resize(size=256),
+            transforms.RandomRotation(30),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+        ])
+        norm_img = transforms.Normalize([0.5], [0.5])
+        norm_label = transforms.Normalize([0], [1])
+        color_jit = transforms.ColorJitter(contrast=0.5)
+
+        im_a, im_b, label = trans(im_a, im_b, label)
+        im_a, im_b = color_jit(im_a, im_b)
+        im_a, im_b, label = transforms.ToTensor()(im_a, im_b, label)
+
+        im_a = norm_img(im_a)
+        im_b = norm_img(im_b)
+        label = norm_label(label)
+
+    
+    else:
+        import torchvision.transforms as transforms
+       
+        trans = transforms.Compose([
+            transforms.Resize(size=256),
+            transforsm.ToTensor(),
+        ])
+       
+        norm_img = transforms.Normalize([0.5], [0.5])
+        norm_label = transforms.Normalize([0], [1])
+
+        im_a = norm_img(trans(im_a))
+        im_b = norm_img(trans(im_b))
+        label = norm_label(trans(label))
+    
+    return im_a, im_b, label
+    
+
+

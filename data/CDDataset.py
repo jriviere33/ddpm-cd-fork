@@ -68,9 +68,12 @@ class CDDataset(Dataset):
         L_path  = get_label_path(self.root_dir, self.img_name_list[index % self.data_len])
         img_lbl = Image.open(L_path).convert("RGB")
         
-        img_A   = Util.transform_augment_cd(img_A, split=self.split, min_max=(-1, 1))
-        img_B   = Util.transform_augment_cd(img_B, split=self.split, min_max=(-1, 1))
-        img_lbl = Util.transform_augment_cd(img_lbl, split=self.split, min_max=(0, 1))
+        # img_A   = Util.transform_augment_cd(img_A, split=self.split, min_max=(-1, 1))
+        # img_B   = Util.transform_augment_cd(img_B, split=self.split, min_max=(-1, 1))
+        # img_lbl = Util.transform_augment_cd(img_lbl, split=self.split, min_max=(0, 1))
+        
+        img_A, img_B, img_lbl   = Util.transform_augment_cd_new(img_A, img_B, img_lbl, split=self.split)
+
         if img_lbl.dim() > 2:
             img_lbl = img_lbl[0]
         

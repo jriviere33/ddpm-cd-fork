@@ -164,7 +164,7 @@ class CD(BaseModel):
             if self.opt['phase'] == 'train':
                 opt = torch.load(opt_path)
                 self.optCD.load_state_dict(opt['optimizer'])
-                self.begin_step = opt['iter']
+                # self.begin_step = opt['iter'] this was not saved off for any of the models we have weights from which we use to finetune
                 self.begin_epoch = opt['epoch']
     
     # Functions related to computing performance metrics for CD
