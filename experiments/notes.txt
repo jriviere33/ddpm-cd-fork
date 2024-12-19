@@ -1,0 +1,1 @@
+Add your pretrained diffusion model weights here as well as any change decoder weights you are wishing to finetune off of
